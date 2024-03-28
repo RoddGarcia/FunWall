@@ -1,0 +1,53 @@
+header {
+  /* height: 10vh; */
+  /* line-height: 10vh; */
+  background-color: #7c0000;
+  /* position: relative; */
+  color: #fff;
+  /* z-index: 999; */
+  padding: 2vh 8vh 2vh 8vh;
+}
+
+.logo img {
+  width: 150px;
+}
+
+header a {
+  color: #f5d520;
+}
+.language {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+/* .language p {
+  margin: -35px; 
+  margin-left: 60px; 
+} */
+
+.nav_left {
+  display: flex;
+  justify-content: space-around;
+  gap: 32px;
+}
+
+.nav_right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+@media (max-width: 900px) {
+  header {
+    /* Apagar após teste finalizado - cor vermelha usada somente para testar mediaquery  */
+    background-color: red;
+  }
+  .nav_right {
+    display: none;
+  }
+  .nav_left .navbar {
+    display: none;
+  }
+}
