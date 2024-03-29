@@ -19,7 +19,9 @@
     "use-http": "1.0.28",
     "bootstrap": "5.3.3",
     "react-bootstrap": "2.10.2",
-    "axios": "1.6.8"
+    "axios": "1.6.8",
+    "aws-sdk": "2.1587.0",
+    "aws4": "1.12.0"
   },
   "scripts": {
     "start": "react-scripts start",

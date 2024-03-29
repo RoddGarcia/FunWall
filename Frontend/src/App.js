@@ -28,7 +28,7 @@ function App() {
       element: (
         <Layout>
           {/* <ErrorPage /> */}
-          <h1>Ops, página não encontrada!</h1>
+          <h1 style={{ color: "white" }}>Ops, página não encontrada!</h1>
         </Layout>
       ),
     },

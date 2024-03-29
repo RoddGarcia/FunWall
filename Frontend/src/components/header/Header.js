@@ -16,9 +16,9 @@ const Header = () => {
       <div className="container navbar">
         <nav className="navbar">
           <div className="nav_left">
-            <div className="logo">
-              <img href={"./"} src={logo} alt="logo" />
-            </div>
+            <Link to="/" className="logo">
+              <img src={logo} alt="logo" />
+            </Link>
             <ul className="navbar">
               <div className="menuOptions">
                 <Link to="/pages/Movie">Filmes</Link>

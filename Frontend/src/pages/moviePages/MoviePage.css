@@ -1,0 +1,59 @@
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 3vh;
+  width: 100%;
+}
+
+.movieDesc {
+  width: 40%;
+  padding: 0px 2vh 0px 2vh;
+}
+
+.movieDesc h1 {
+  color: #ffffff;
+  font-size: 4vh;
+}
+
+.moviePoster img {
+  border-radius: 8px;
+}
+
+.movieRating {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(177, 177, 177, 0.295);
+  padding: 0px 20px 0px 20px;
+  border-radius: 20px;
+}
+
+.rr1 {
+  display: flex;
+  justify-content: space-around;
+  gap: 2vh;
+  margin: 1vh;
+}
+
+.rr2 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 2vh;
+  gap: 1vh;
+}
+
+.rr3 {
+  display: flex;
+  margin: 2vh;
+  gap: 1vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+#icons {
+  display: flex;
+  justify-content: center;
+  margin: 1vh;
+}

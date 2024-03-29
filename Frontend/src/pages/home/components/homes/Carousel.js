@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import useFetch from "use-http";
 
 export const Carousel = ({ items }) => {
-  console.log(items);
+  // console.log(items);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [filmes, setFilmes] = useState([]);
 
