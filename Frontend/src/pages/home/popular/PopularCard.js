@@ -1,23 +1,27 @@
+// PopularCard.js
 import React, { useState } from "react";
-import "./Popup.css";
-import Popup from "./Popup";
 import { Link } from "react-router-dom";
 
-export const PopularCard = ({ item: { _id, avatar, name } }) => {
+export const PopularCard = ({ item: { id, imagem, titulo }, tipo: tipo }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  console.log(tipo);
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
 
   return (
     <>
-      <Link to={"/movie/" + _id} className="MovieBox">
+      <Link
+        to={`/${tipo.toLowerCase()}/` + id}
+        className="MovieBox"
+        style={{ background: "transparent" }}
+      >
         <div className="img">
-          <img src={avatar} alt="" />
+          <img src={imagem} alt="" />
         </div>
         <div className="text">
-          <h3>{name}</h3>
+          <h3>{titulo}</h3>
         </div>
       </Link>
       {/* 

@@ -19,30 +19,30 @@ export function Form() {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:8080/filmes", formData);
-      alert("Filme adicionado com sucesso!");
-      // Limpar os campos do formulário após o envio bem-sucedido
-      setFormData({
-        titulo: "",
-        diretor: "",
-        elenco: "",
-        pais: "",
-        anoLancamento: "",
-        media: 0,
-      });
-    } catch (error) {
-      console.error("Erro ao adicionar filme:", error);
-      alert("Ocorreu um erro ao adicionar o filme.");
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios.post("http://localhost:8080/filmes", formData);
+  //     alert("Filme adicionado com sucesso!");
+  //     // Limpar os campos do formulário após o envio bem-sucedido
+  //     setFormData({
+  //       titulo: "",
+  //       diretor: "",
+  //       elenco: "",
+  //       pais: "",
+  //       anoLancamento: "",
+  //       media: 0,
+  //     });
+  //   } catch (error) {
+  //     console.error("Erro ao adicionar filme:", error);
+  //     alert("Ocorreu um erro ao adicionar o filme.");
+  //   }
+  // };
 
   return (
     <div className="form-container">
       <h1>Adicionar Novo Filme</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <label>Título:</label>
         <input
           type="text"

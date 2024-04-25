@@ -13,17 +13,16 @@
 .popup-inner {
   position: relative;
   padding: 32px;
-  width: 100%;
-  max-width: 640px;
+  width: 64%;
   background-color: white;
 }
 .close-btn {
-  position: absolute;
+  font-size: 50px;
   top: 16px;
   right: 16px;
   border: 0;
   background-color: transparent;
-  font-size: 16px;
+  position: unset;
 }
 .close-btn:hover {
   cursor: pointer;

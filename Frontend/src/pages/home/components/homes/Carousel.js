@@ -45,8 +45,7 @@ export const Carousel = ({ items }) => {
     <div className="homeContainer">
       <Slider {...settings}>
         {items.map((item) => {
-          return <HomeCard key={item._id} item={item} />;
-          // return <h1>asd</h1>;
+          return <HomeCard key={item.id} item={item} />;
         })}
       </Slider>
     </div>

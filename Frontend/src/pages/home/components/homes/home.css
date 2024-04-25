@@ -6,6 +6,12 @@
 
 .homeContainer {
   position: relative;
+  height: 70vh;
+}
+
+.slick-list,
+.slick-slider.slick-initialized {
+  height: 100%;
 }
 
 .coverImage {
@@ -23,12 +29,12 @@
 }
 
 .homeContainer .content {
-  padding: 100px;
+  padding-left: 100px;
 }
 
 .homeContainer h1 {
-  margin-top: 80px;
-  font-size: 90px;
+  margin-top: 40px;
+  font-size: 70px;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -53,6 +59,7 @@
 
 .homeContainer .rating {
   margin: 30px 0;
+  display: none;
 }
 
 .rating i {
@@ -83,11 +90,17 @@
   background-color: rgba(0, 0, 0, 0);
   color: #fff;
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
-  padding: 12px 40px;
+  /* padding: 12px 40px; */
   margin: 0;
   margin-top: 10px;
 }
 
 .margin {
   margin-top: 50%;
+}
+
+@media (max-width: 1110px) {
+  .home {
+    display: none;
+  }
 }

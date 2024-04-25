@@ -1,49 +1,45 @@
 import { useState, useEffect } from "react";
-import { popular } from "../../mocks/dummyData";
+// import { movies } from "../../mocks/dummyData"; // dummydata para filmes
+import { books } from "../../mocks/dummyData";
+import { series } from "../../mocks/dummyData";
 import { MainCarousel } from "./components/homes/MainCarousel";
-import { Popular } from "./popular/Popular";
+import { PopularFilmes } from "./popular/PopularFilmes";
+import { PopularBooks } from "./popular/PopularBooks";
+import { PopularSeries } from "./popular/PopularSeries";
 import useFetch from "use-http";
+import Modal from "../../components/modal/Modal";
+import GetMovieData from "../GetData";
 
 export const HomePage = () => {
-  const baseURL = "https://mack-webmobile.vercel.app/api/users";
-  // const baseURL =
-  //   "http://ec2-15-229-109-68.sa-east-1.compute.amazonaws.com/filmes";
+  //  API É CHAMADA AQUI APENAS PARA TESTE EM console.LOG
+  // const baseURL = "http://localhost:8080/filmes";
 
-  const { get, response } = useFetch(baseURL);
-  const [filmes, setFilmes] = useState([]);
+  // const { get, response } = useFetch(baseURL);
+  // const [filmes, setFilmes] = useState([]);
 
-  const buscar = async () => {
-    const resp = await get();
+  // const buscar = async () => {
+  //   const resp = await get();
+  //   console.log(resp);
+  //   if (response.ok) {
+  //     setFilmes(resp);
+  //   } else {
+  //     setFilmes([]);
+  //   }
+  // };
+  // useEffect(() => {
+  //   buscar();
+  //   console.log(filmes);
+  // }, []);
 
-    if (response.ok) {
-      setFilmes(resp);
-    } else {
-      setFilmes([]);
-    }
-  };
-  useEffect(() => {
-    buscar();
-  }, []);
-
-  // fetch(baseURL)
-  //   .then((response) => {
-  //     if (!response.ok) {
-  //       throw new Error(`Failed with status code: ${response.status}`);
-  //     }
-
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     console.log(data);
-  //   })
-  //   .catch((err) => {
-  //     console.log("Fetch Error: ", err);
-  //   });
+  const movies = GetMovieData();
 
   return (
     <>
       <MainCarousel />
-      <Popular items={filmes} title="Populares" />
+      <PopularFilmes items={movies} title="Filmes Populares" />
+      <PopularSeries items={series} title="Séries Populares" />
+      <PopularBooks items={books} title="Livros Populares" />
+      <Modal />
     </>
   );
 };
