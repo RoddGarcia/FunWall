@@ -11,6 +11,7 @@ import Cadastro from "./pages/loginPage/Cadastro";
 import Obras from "./pages/fullContent/Obras";
 import Pesquisa from "./pages/fullContent/Pesquisa";
 import SeriePage from "./pages/seriePage/SeriePage";
+import LivroPage from "./pages/home/livroPage/LivroPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -87,6 +88,14 @@ function App() {
       element: (
         <Layout>
           <Obras tipo={"livros"} />
+        </Layout>
+      ),
+    },
+    {
+      path: "/livros/:livrosId",
+      element: (
+        <Layout>
+          <LivroPage />
         </Layout>
       ),
     },

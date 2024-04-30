@@ -1,25 +1,24 @@
 import useFetch from "use-http";
 import { useEffect, useState } from "react";
 
-const GetMovieData = () => {
-  const baseURL = "http://localhost:8080/filmes";
+const GetData = (tipo) => {
+  const baseURL = `http://localhost:8080/${tipo}`;
   const { get, response } = useFetch(baseURL);
-  const [movies, setMovies] = useState([]);
+  const [data, setData] = useState([]);
   const buscar = async () => {
     const resp = await get();
     console.log(resp);
     if (response.ok) {
-      setMovies(resp);
+      setData(resp);
     } else {
-      setMovies([]);
+      setData([]);
     }
   };
   useEffect(() => {
     buscar();
-    console.log(movies);
   }, []);
 
-  return movies;
+  return data;
 };
 
-export default GetMovieData;
+export default GetData;

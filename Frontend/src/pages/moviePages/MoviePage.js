@@ -14,7 +14,7 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { movies } from "../../mocks/dummyData";
-import GetMovieData from "../GetData";
+import GetData from "../GetMovieData";
 
 const MoviePage = () => {
   const { movieId } = useParams();
@@ -29,7 +29,7 @@ const MoviePage = () => {
   const [userAval, setUserAval] = useState({});
 
   // console.log(movieId);
-  const movies = GetMovieData();
+  const movies = GetData("filmes");
 
   const findMovieById = (movies, id) => {
     return movies.find((movie) => movie.id === parseInt(id));
@@ -91,8 +91,7 @@ const MoviePage = () => {
         const result = await post("", userAval);
         if (response.ok) {
           console.log("Avaliação enviada com sucesso:", result);
-          // Optionally, you can perform actions after successful post
-          // For example, refreshing the page
+
           window.location.reload();
         } else {
           console.error("Erro ao enviar avaliação:", response.data);

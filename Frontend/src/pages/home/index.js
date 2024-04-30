@@ -8,9 +8,28 @@ import { PopularBooks } from "./popular/PopularBooks";
 import { PopularSeries } from "./popular/PopularSeries";
 import useFetch from "use-http";
 import Modal from "../../components/modal/Modal";
-import GetMovieData from "../GetData";
+import GetMovieData from "../GetMovieData";
 
 export const HomePage = () => {
+  const baseURLLivros = "http://localhost:8080/livros";
+  const { get, response } = useFetch(baseURLLivros);
+  // const [movies, setMovies] = useState([]);
+  const [livros, setLivros] = useState([]);
+
+  const buscarLivros = async () => {
+    const resp = await get();
+    if (response.ok) {
+      setLivros(resp);
+    } else {
+      setLivros([]);
+    }
+  };
+  useEffect(() => {
+    buscarLivros();
+  }, []);
+
+  console.log(livros);
+
   //  API É CHAMADA AQUI APENAS PARA TESTE EM console.LOG
   // const baseURL = "http://localhost:8080/filmes";
 
@@ -31,14 +50,15 @@ export const HomePage = () => {
   //   console.log(filmes);
   // }, []);
 
-  const movies = GetMovieData();
+  const movies = GetMovieData("filmes");
+  const series = GetMovieData("series");
 
   return (
     <>
       <MainCarousel />
       <PopularFilmes items={movies} title="Filmes Populares" />
       <PopularSeries items={series} title="Séries Populares" />
-      <PopularBooks items={books} title="Livros Populares" />
+      <PopularBooks items={livros} title="Livros Populares" />
       <Modal />
     </>
   );

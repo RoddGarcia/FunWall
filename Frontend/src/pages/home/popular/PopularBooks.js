@@ -35,7 +35,7 @@ export const PopularBooks = ({ items, title }) => {
           <Slider {...settings}>
             {items.map((item) => (
               <div className="popular-card-wrapper" key={item.id}>
-                <PopularCard item={item} tipo={"books"} />
+                <PopularCard item={item} tipo={"livros"} />
               </div>
             ))}
           </Slider>

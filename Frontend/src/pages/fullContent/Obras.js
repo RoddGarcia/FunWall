@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { series, books } from "../../mocks/dummyData";
 import { Link } from "react-router-dom";
 import "./filmes.css";
-import GetMovieData from "../GetData";
+import GetMovieData from "../GetMovieData";
 
 const Obras = ({ tipo }) => {
   const [lookUp, setLookUp] = useState([]);
