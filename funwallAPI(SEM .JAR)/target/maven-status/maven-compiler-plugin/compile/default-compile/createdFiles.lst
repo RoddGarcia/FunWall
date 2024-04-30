@@ -1,0 +1,4 @@
+com\example\funwallAPI\model\Filme.class
+com\example\funwallAPI\repository\FilmeRepository.class
+com\example\funwallAPI\FunwallApiApplication.class
+com\example\funwallAPI\controller\FilmeController.class
