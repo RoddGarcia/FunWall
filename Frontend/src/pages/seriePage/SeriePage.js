@@ -2,35 +2,40 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../moviePages/MoviePage.css";
 import "../moviePages/MoviePageDesktop.css";
-import { useCookies } from "react-cookie";
-import { FaStar } from "react-icons/fa";
 import useFetch from "use-http";
+import { FaStar } from "react-icons/fa";
+import { useCookies } from "react-cookie";
+// import { series } from "../../../mocks/dummyData";
 import GetData from "../GetMovieData";
-import { series } from "../../mocks/dummyData";
 
 const SeriePage = () => {
   const { serieId } = useParams();
   const [serieInfo, setSerieInfo] = useState(null);
   const [hoveredStarIndex, setHoveredStarIndex] = useState(-1);
-  const [userAval, setUserAval] = useState({});
-  const [cookies] = useCookies(["user"]);
   const [rating, setRating] = useState(0);
+  const [cookies] = useCookies(["user"]);
+  const [userAval, setUserAval] = useState({});
   const [comment, setComment] = useState("");
 
   const series = GetData("series");
 
-  const findMovieById = (series, id) => {
-    return series.find((serie) => series.id === parseInt(id));
+  const findSerieById = (series, id) => {
+    return series.find((serie) => serie.id === parseInt(id));
   };
 
   useEffect(() => {
-    const serie = series.find((serie) => serie.id === parseInt(serieId));
-    if (serie) {
-      setSerieInfo(serie);
+    if (series) {
+      const serie = findSerieById(series, serieId);
+      if (serie) {
+        setSerieInfo(serie);
+        console.log(serieInfo);
+      }
     }
-  }, [serieId]);
+  }, [serieId, series]);
 
-  console.log(serieInfo);
+  const handleStarHover = (index) => {
+    setHoveredStarIndex(index);
+  };
 
   const baseURLPost = "http://localhost:8080/avaliacoes";
   const { post, response } = useFetch(baseURLPost);
@@ -45,11 +50,6 @@ const SeriePage = () => {
         user_id: { id: cookies.user.id },
       });
 
-      // console.log("ID do user:", cookies.user.id);
-      // console.log("Nome da obra:" + movieInfo.titulo);
-      // console.log("Nota:", rating);
-      // console.log("Comentário:", comment);
-
       console.log(userAval);
       try {
         const result = await post("", userAval);
@@ -63,10 +63,6 @@ const SeriePage = () => {
         console.error("Erro ao enviar avaliação:", error);
       }
     }
-  };
-
-  const handleStarHover = (index) => {
-    setHoveredStarIndex(index);
   };
 
   const handleStarClick = (index) => {

@@ -21,14 +21,12 @@ const MoviePage = () => {
   const [movieInfo, setMovieInfo] = useState(null);
   const [hoveredStarIndex, setHoveredStarIndex] = useState(-1);
   const [rating, setRating] = useState(0);
-  // const [notes, setNotes] = useState(Array(5).fill(""));
   const [comment, setComment] = useState("");
   const [cookies] = useCookies(["user"]);
   const [rated, setRated] = useState(false);
 
   const [userAval, setUserAval] = useState({});
 
-  // console.log(movieId);
   const movies = GetData("filmes");
 
   const findMovieById = (movies, id) => {

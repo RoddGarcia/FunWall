@@ -117,7 +117,7 @@ function App() {
     },
 
     {
-      path: "/serie/:serieId",
+      path: "/series/:serieId",
       element: (
         <Layout>
           <SeriePage />

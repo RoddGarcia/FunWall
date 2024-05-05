@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import "../moviePages/MoviePage.css";
-// import "../moviePages/MoviePageDesktop.css";
-import { FaStar } from "react-icons/fa";
+import "../../moviePages/MoviePage.css";
+import "../../moviePages/MoviePageDesktop.css";
 import useFetch from "use-http";
-import { books } from "../../../mocks/dummyData";
-import GetData from "../../GetMovieData";
+import { FaStar } from "react-icons/fa";
 import { useCookies } from "react-cookie";
+// import { livros } from "../../../mocks/dummyData";
+import GetData from "../../GetMovieData";
 
 const LivroPage = () => {
   const { livroId } = useParams();
   const [livroInfo, setLivroInfo] = useState(null);
+  const [hoveredStarIndex, setHoveredStarIndex] = useState(-1);
   const [rating, setRating] = useState(0);
   const [cookies] = useCookies(["user"]);
   const [userAval, setUserAval] = useState({});
@@ -18,20 +19,23 @@ const LivroPage = () => {
 
   const livros = GetData("livros");
 
-  useEffect(() => {
-    const serie = livros.find((livro) => serie.id === parseInt(livroId));
-    if (serie) {
-      setLivroInfo(serie);
-    }
-  }, [livroId]);
+  const findlivroById = (livros, id) => {
+    return livros.find((livro) => livro.id === parseInt(id));
+  };
 
   useEffect(() => {
-    const livro = books.find((livro) => livro.id === livroId);
-    if (livro) {
-      setLivroInfo(livro);
-      console.log(livroInfo);
+    if (livros) {
+      const livro = findlivroById(livros, livroId);
+      if (livro) {
+        setLivroInfo(livro);
+        console.log(livroInfo);
+      }
     }
-  }, [livroId]);
+  }, [livroId, livros]);
+
+  const handleStarHover = (index) => {
+    setHoveredStarIndex(index);
+  };
 
   const baseURLPost = "http://localhost:8080/avaliacoes";
   const { post, response } = useFetch(baseURLPost);
@@ -45,11 +49,6 @@ const LivroPage = () => {
         texto: comment,
         user_id: { id: cookies.user.id },
       });
-
-      // console.log("ID do user:", cookies.user.id);
-      // console.log("Nome da obra:" + movieInfo.titulo);
-      // console.log("Nota:", rating);
-      // console.log("Comentário:", comment);
 
       console.log(userAval);
       try {
@@ -66,6 +65,21 @@ const LivroPage = () => {
     }
   };
 
+  const handleStarClick = (index) => {
+    const newRating = index + 1;
+    setRating(newRating);
+  };
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      HandleEvaluate();
+    }
+  };
+
   return (
     <div>
       {livroInfo ? (
@@ -74,24 +88,70 @@ const LivroPage = () => {
             <div className="single-movie-content">
               <div className="movie-container">
                 <div className="moviePoster">
-                  <img src={livroInfo.imagem} alt="Capa do Livro" />
+                  <img src={livroInfo.imagem} alt="livro Poster" />
                 </div>
                 <div className="movieDesc">
                   <h1>{livroInfo.titulo}</h1>
-                  <p className="text">Autor: {livroInfo.autor}</p>
-                  <p className="text">Gênero: {livroInfo.genero}</p>
-                  <p className="text">Editora: {livroInfo.editora}</p>
-                  <p className="text">País: {livroInfo.pais}</p>
+                  <p className="text">{livroInfo.descricao}</p>
+                  <p className="text">{livroInfo.diretor}</p>
+                  <p className="text">{livroInfo.genero}</p>
                   <p className="text">
-                    Ano de Lançamento: {livroInfo.anoLancamento}
+                    {livroInfo.pais}, {livroInfo.ano_lancamento}
                   </p>
+                </div>
+              </div>
+
+              <div className="rating-container">
+                <div className="movieRating">
+                  <div className="r1">
+                    <div className="rr2">
+                      <div className="Stars">
+                        {[...Array(5)].map((_, index) => (
+                          <FaStar
+                            key={index}
+                            size={40}
+                            onMouseEnter={() => handleStarHover(index)}
+                            onMouseLeave={() => handleStarHover(-1)}
+                            onClick={() => handleStarClick(index)}
+                            color={
+                              index <= hoveredStarIndex ? "#ffc107" : "#e4e5e9"
+                            }
+                            style={{ cursor: "pointer" }}
+                          />
+                        ))}
+                        <p>Nota: {rating}</p>
+                      </div>
+                      <textarea
+                        name="postContent"
+                        rows={4}
+                        cols={40}
+                        value={comment}
+                        onChange={handleCommentChange}
+                        onKeyPress={handleKeyPress}
+                        style={{ resize: "none" }}
+                        maxLength={128}
+                      />
+                      <button onClick={() => HandleEvaluate()}>Avaliar</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </main>
+          <h1 className="elenco">Elenco</h1>
+          <p>
+            {livroInfo.elenco &&
+              livroInfo.elenco.map((ator, index) => (
+                <span key={index}>
+                  {ator}
+                  {index === livroInfo.elenco.length - 1 ? "." : ", "}
+                </span>
+              ))}
+          </p>
+          <hr />
         </>
       ) : (
-        <p>Carregando...</p>
+        <p style={{ color: "white" }}>Carregando...</p>
       )}
     </div>
   );

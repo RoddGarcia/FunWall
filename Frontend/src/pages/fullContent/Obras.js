@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { series, books } from "../../mocks/dummyData";
 import { Link } from "react-router-dom";
 import "./filmes.css";
 import GetMovieData from "../GetMovieData";
@@ -8,14 +7,16 @@ import GetMovieData from "../GetMovieData";
 const Obras = ({ tipo }) => {
   const [lookUp, setLookUp] = useState([]);
 
-  const movies = GetMovieData();
+  const movies = GetMovieData("filmes");
+  const series = GetMovieData("series");
+  const livros = GetMovieData("livros");
   useEffect(() => {
     if (tipo === "filmes") {
       setLookUp(movies);
     } else if (tipo === "series") {
       setLookUp(series);
     } else if (tipo === "livros") {
-      setLookUp(books);
+      setLookUp(livros);
     }
   }, [tipo]);
 

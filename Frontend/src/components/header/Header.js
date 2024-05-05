@@ -47,6 +47,7 @@ const Header = () => {
                 <Link to="/series">Séries</Link>
                 <Link to="/livros">Livros</Link>
                 {cookies.user &&
+                  cookies.user.username &&
                   cookies.user.username.toUpperCase() === "ADMIN" && (
                     <Link className="adm_access" to="/pages/Gerenciar">
                       Gerenciar
@@ -64,7 +65,6 @@ const Header = () => {
                 onChange={(e) => {
                   setSValue(e.target.value);
                 }}
-                onKeyPress={handleKeyPress}
                 placeholder="Procurar"
               ></input>
             </form>

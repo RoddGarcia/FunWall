@@ -6,17 +6,14 @@ import { Link } from "react-router-dom";
 const Pesquisa = () => {
   const { searchVar } = useParams();
 
-  // Filter movies based on the search variable
   const filteredMovies = movies.filter((movie) =>
     movie.titulo.toLowerCase().includes(searchVar.toLowerCase())
   );
 
-  // Filter series based on the search variable
   const filteredSeries = series.filter((serie) =>
     serie.titulo.toLowerCase().includes(searchVar.toLowerCase())
   );
 
-  // Filter books based on the search variable
   const filteredBooks = books.filter((book) =>
     book.titulo.toLowerCase().includes(searchVar.toLowerCase())
   );
