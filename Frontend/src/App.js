@@ -92,7 +92,7 @@ function App() {
       ),
     },
     {
-      path: "/livros/:livrosId",
+      path: "/livros/:livroId",
       element: (
         <Layout>
           <LivroPage />

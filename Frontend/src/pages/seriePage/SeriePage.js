@@ -50,7 +50,6 @@ const SeriePage = () => {
         user_id: { id: cookies.user.id },
       });
 
-      console.log(userAval);
       try {
         const result = await post("", userAval);
         if (response.ok) {

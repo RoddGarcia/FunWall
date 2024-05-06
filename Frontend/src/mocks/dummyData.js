@@ -239,4 +239,10 @@ export const usuarios = [
     senha: "brabo",
     avatar: "../images/ljZzGm4v_400x400.jpg",
   },
+  {
+    id: 6, // UUID literal
+    username: "usuario",
+    senha: "legal",
+    avatar: "../images/ljZzGm4v_400x400.jpg",
+  },
 ];

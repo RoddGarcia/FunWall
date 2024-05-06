@@ -59,13 +59,6 @@ const MoviePage = () => {
     setComment(event.target.value);
   };
 
-  // useEffect(() => {
-  //   console.log(userAval);
-  //   if (userAval) {
-  //     PostAvaliacao();
-  //   }
-  // }, [userAval]);
-
   const baseURLPost = "http://localhost:8080/avaliacoes";
   const { post, response } = useFetch(baseURLPost);
   const HandleEvaluate = async () => {
@@ -79,17 +72,10 @@ const MoviePage = () => {
         user_id: { id: cookies.user.id },
       });
 
-      // console.log("ID do user:", cookies.user.id);
-      // console.log("Nome da obra:" + movieInfo.titulo);
-      // console.log("Nota:", rating);
-      // console.log("Comentário:", comment);
-
-      console.log(userAval);
       try {
         const result = await post("", userAval);
         if (response.ok) {
           console.log("Avaliação enviada com sucesso:", result);
-
           window.location.reload();
         } else {
           console.error("Erro ao enviar avaliação:", response.data);

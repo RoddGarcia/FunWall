@@ -47,8 +47,8 @@ const Header = () => {
                 <Link to="/series">Séries</Link>
                 <Link to="/livros">Livros</Link>
                 {cookies.user &&
-                  cookies.user.username &&
-                  cookies.user.username.toUpperCase() === "ADMIN" && (
+                  cookies.user.nome &&
+                  cookies.user.nome.toUpperCase() === "ADMIN" && (
                     <Link className="adm_access" to="/pages/Gerenciar">
                       Gerenciar
                     </Link>
@@ -71,14 +71,11 @@ const Header = () => {
             <FaSearch className="mobileSearch" size={30} />
             {cookies.user ? (
               <div className="user-info">
-                <Link to={"/user/" + cookies.user.username}>
+                <Link to={"/user/" + cookies.user.nome}>
                   <img src={cookies.user.avatar} alt="user" />
                 </Link>
-                <Link
-                  className="user-name"
-                  to={"/user/" + cookies.user.username}
-                >
-                  {cookies.user.username}
+                <Link className="user-name" to={"/user/" + cookies.user.nome}>
+                  {cookies.user.nome}
                 </Link>
                 <button className="login" onClick={handleLogout}>
                   Deslogar

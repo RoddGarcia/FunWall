@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
-import { usuarios } from "../../mocks/dummyData";
 import { useCookies } from "react-cookie";
+import GetUsersData from "../GetUsersData";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-
-  const [countdown, setCountdown] = useState(2 * 1000); // 2 seconds
+  const usuarios = GetUsersData();
 
   const handleLogin = () => {
-    const user = usuarios.find((user) => user.username === username);
+    const user = usuarios.find((user) => user.nome === username);
     if (user) {
       if (user.senha === password) {
         console.log("User logged in");
@@ -23,12 +22,6 @@ const Login = () => {
       }
     } else {
       alert("Usuário não encontrado.");
-    }
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleLogin();
     }
   };
 

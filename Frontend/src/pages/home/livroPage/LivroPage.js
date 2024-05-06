@@ -25,10 +25,13 @@ const LivroPage = () => {
 
   useEffect(() => {
     if (livros) {
+      console.log(livroId);
+
       const livro = findlivroById(livros, livroId);
+
+      console.log(livro);
       if (livro) {
         setLivroInfo(livro);
-        console.log(livroInfo);
       }
     }
   }, [livroId, livros]);
@@ -93,11 +96,12 @@ const LivroPage = () => {
                 <div className="movieDesc">
                   <h1>{livroInfo.titulo}</h1>
                   <p className="text">{livroInfo.descricao}</p>
-                  <p className="text">{livroInfo.diretor}</p>
+                  {/* {/* <p className="text">{livroInfo.autor}</p> */}
                   <p className="text">{livroInfo.genero}</p>
                   <p className="text">
-                    {livroInfo.pais}, {livroInfo.ano_lancamento}
-                  </p>
+                    {livroInfo.pais}, {livroInfo.anoLancamento}
+                  </p>{" "}
+                  */}
                 </div>
               </div>
 
@@ -139,15 +143,6 @@ const LivroPage = () => {
             </div>
           </main>
           <h1 className="elenco">Elenco</h1>
-          <p>
-            {livroInfo.elenco &&
-              livroInfo.elenco.map((ator, index) => (
-                <span key={index}>
-                  {ator}
-                  {index === livroInfo.elenco.length - 1 ? "." : ", "}
-                </span>
-              ))}
-          </p>
           <hr />
         </>
       ) : (
