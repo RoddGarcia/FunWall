@@ -12,8 +12,6 @@ const UserPage = () => {
   const [cookies] = useCookies(["user"]);
   const usuarios = GetUsersData();
   const filmes = GetData("filmes");
-  // const series = GetData("series");
-  // const livros = GetData("livros");
   const [getUserInfo, setUserInfo] = useState(null);
 
   const userVer = cookies.user;
@@ -68,6 +66,10 @@ const UserPage = () => {
     buscar();
   }, []);
 
+  const adicionarAmigo = async () => {
+    alert("Amigo adicionado");
+  };
+
   const countAvaliacoes = aval.length;
 
   const toggleEditing = () => {
@@ -118,6 +120,11 @@ const UserPage = () => {
           <p>Avaliações</p>
         </div>
       </div>
+      {cookies.user.nome !== userId && (
+        <div className="user-data-container">
+          <button onClick={adicionarAmigo}>Adicionar amigo</button>
+        </div>
+      )}
       {profileButtons}
       <div className="section">
         <h2>Obras Avaliadas</h2>
@@ -135,9 +142,6 @@ const UserPage = () => {
           </div>
         </div>
       </div>
-
-      {/* Seção de Séries Avaliadas */}
-      {/* Seção de Livros Avaliados */}
     </>
   );
 };

@@ -4,6 +4,7 @@ import { FiUsers } from "react-icons/fi";
 import { BsSearch } from "react-icons/bs";
 import { useCookies } from "react-cookie";
 import useFetch from "use-http";
+import { IoPersonRemoveSharp } from "react-icons/io5";
 
 function Modal() {
   const [modal, setModal] = useState(false);
@@ -13,10 +14,21 @@ function Modal() {
   const [friends, setFriends] = useState([]);
 
   const baseURL = "http://localhost:8080/amizade";
-  const { get, response } = useFetch(baseURL);
+  const { get, response, del } = useFetch(baseURL);
 
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const removerAmigo = async (friendshipId) => {
+    const confirmRemoval = window.confirm(
+      `Deseja remover este usuário da sua lista de amizades?`
+    );
+    if (confirmRemoval) {
+      await del(`${friendshipId}`);
+      console.log("Deletar");
+      // window.location.reload();
+    }
   };
 
   useEffect(() => {
@@ -31,6 +43,9 @@ function Modal() {
             item.user2_id.id === cookies.user.id
           );
         });
+
+        setFriendsList(userFriends);
+        console.log(friendsList);
 
         const friendNames = [];
 
@@ -56,13 +71,12 @@ function Modal() {
     setInputText(e.target.value);
   };
 
-  const filteredFriends = friendsList.filter((friend) =>
-    friend.nome.toLowerCase().includes(inputText.toLowerCase())
-  );
+  // const filteredFriends = friendsList.filter((friend) =>
+  //   friend.toLowerCase().includes(inputText.toLowerCase())
+  // );
 
   return (
     <>
-      {/* Serve pra ver se está logado*/}
       {cookies.user && (
         <div className="btn-modal">
           <button className="btn-modal" onClick={toggleModal}>
@@ -89,13 +103,20 @@ function Modal() {
             </div>
             <div className="friends-main">
               {friendsList ? (
-                friends.map((friend) => (
-                  <div className="friends-row" key={friend.nome}>
+                friendsList.map((friend) => (
+                  <div className="friends-row" key={friend.id}>
                     <div className="friends-info">
                       <img src="#" alt="foto user" />
-                      <a href={`/user/${friend}`}>{friend}</a>
+                      <a href={`/user/${friend.id}`}>{friend.user2_id.nome}</a>
                     </div>
-                    <button className="follow">Follow</button>
+                    <button className="follow">
+                      <IoPersonRemoveSharp
+                        title="Remover Amigo"
+                        size={"big"}
+                        onClick={() => removerAmigo(friend.id)}
+                      />
+                    </button>
+                    {/* <p>{index}</p> */}
                   </div>
                 ))
               ) : (

@@ -15,10 +15,9 @@ main {
   margin-top: 2vh;
 }
 
-/* .login-container {
-  background-color: #fff;
-  padding: 20px;
-} */
+.login-container {
+  margin-top: 0vh;
+}
 
 .login-header {
   height: 90vh;
@@ -123,7 +122,9 @@ main {
 
 .forgot-password {
   color: #fff854;
-  font: 13px "Open Sans", sans-serif;
+  font:
+    13px "Open Sans",
+    sans-serif;
   text-align: center; /* Centralizando o texto */
   display: block;
   margin-top: 10px; /* Ajuste opcional do espaçamento superior */
@@ -150,7 +151,9 @@ main {
   border-radius: 30px;
   background-color: #7c0000;
   color: #fff;
-  font: 700 14px "Open Sans", sans-serif;
+  font:
+    700 14px "Open Sans",
+    sans-serif;
   letter-spacing: 0.35px;
   padding: 2vh 2vh;
   border: none;

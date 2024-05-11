@@ -9,7 +9,7 @@ import { useCookies } from "react-cookie";
 const Header = () => {
   const menuOptions = ["Filmes", "Séries", "Livros", "Gerenciar"];
   const [cookies, , removeCookie] = useCookies(["user"]);
-  const [sValue, setSValue] = useState();
+  const [sValue, setSValue] = useState("");
 
   const handleLogout = () => {
     removeCookie("user");
@@ -57,7 +57,7 @@ const Header = () => {
             </ul>
           </div>
           <div className="nav_right">
-            <form className="search">
+            <div className="search">
               <input
                 id="txtSearch"
                 type="text"
@@ -66,8 +66,9 @@ const Header = () => {
                   setSValue(e.target.value);
                 }}
                 placeholder="Procurar"
-              ></input>
-            </form>
+                onKeyUp={handleKeyPress}
+              />
+            </div>
             <FaSearch className="mobileSearch" size={30} />
             {cookies.user ? (
               <div className="user-info">

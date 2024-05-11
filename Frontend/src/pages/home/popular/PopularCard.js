@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 export const PopularCard = ({ item: { id, imagem, titulo }, tipo: tipo }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  console.log(tipo);
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
