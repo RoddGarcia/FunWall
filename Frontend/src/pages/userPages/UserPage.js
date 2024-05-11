@@ -53,6 +53,7 @@ const UserPage = () => {
         const filteredData = resp.filter(
           (item) => item.user_id.nome === userId
         );
+
         setAval(filteredData);
         console.log("Filtered: ", filteredData);
       } else {

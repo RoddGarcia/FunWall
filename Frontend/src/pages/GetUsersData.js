@@ -7,7 +7,6 @@ const GetUsersData = () => {
   const [data, setData] = useState([]);
   const buscar = async () => {
     const resp = await get();
-    console.log(resp);
     if (response.ok) {
       setData(resp);
     } else {

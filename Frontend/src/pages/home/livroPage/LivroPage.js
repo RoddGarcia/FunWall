@@ -25,11 +25,8 @@ const LivroPage = () => {
 
   useEffect(() => {
     if (livros) {
-      console.log(livroId);
-
       const livro = findlivroById(livros, livroId);
 
-      console.log(livro);
       if (livro) {
         setLivroInfo(livro);
       }
@@ -101,7 +98,6 @@ const LivroPage = () => {
                   <p className="text">
                     {livroInfo.pais}, {livroInfo.anoLancamento}
                   </p>{" "}
-                  */}
                 </div>
               </div>
 
