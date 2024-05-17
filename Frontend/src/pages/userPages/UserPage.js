@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./userPage.css";
 import { useCookies } from "react-cookie";
-import { usuarios } from "../../mocks/dummyData";
 import GetUsersData from "../GetUsersData";
 import { useFetch } from "use-http";
 import GetData from "../GetMovieData";
@@ -22,7 +21,7 @@ const UserPage = () => {
   const [editing, setEditing] = useState(false); // State for tracking edit mode
   const [newAvatar, setNewAvatar] = useState(null); // State to hold new avatar image
 
-  const baseURL = "http://localhost:8080/avaliacoes";
+  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/avaliacoes";
   const { get, response } = useFetch(baseURL);
   const [aval, setAval] = useState([]);
 

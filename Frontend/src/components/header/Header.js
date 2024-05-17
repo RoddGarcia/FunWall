@@ -49,7 +49,7 @@ const Header = () => {
                 {cookies.user &&
                   cookies.user.nome &&
                   cookies.user.nome.toUpperCase() === "ADMIN" && (
-                    <Link className="adm_access" to="/pages/Gerenciar">
+                    <Link className="adm_access" to="/pages/gerenciar">
                       Gerenciar
                     </Link>
                   )}

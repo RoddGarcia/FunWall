@@ -13,7 +13,7 @@ import { movies } from "../../../../mocks/dummyData";
 export const MainCarousel = () => {
   const [items, setItems] = useState(homeData);
   // const baseURL = "http://ec2-15-228-43-137.sa-east-1.compute.amazonaws.com:8080/filmes";
-  const baseURL = "http://localhost:8080/filmes";
+  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/filmes";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
   const [filmes, setFilmes] = useState([]);
 

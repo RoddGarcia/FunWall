@@ -13,7 +13,7 @@ function Modal() {
   const [friendsList, setFriendsList] = useState([]);
   const [friends, setFriends] = useState([]);
 
-  const baseURL = "http://localhost:8080/amizade";
+  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/amizade";
   const { get, response, del } = useFetch(baseURL);
 
   const toggleModal = () => {

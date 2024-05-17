@@ -14,7 +14,7 @@ const Cadastro = () => {
   const [preferencia, setPreferencia] = useState("comedia");
   const [userData, setUserData] = useState({});
 
-  const baseURL = `http://localhost:8080/usuarios`;
+  const baseURL = `http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios`;
   const { post, response } = useFetch(baseURL);
 
   const HandleSubmit = async (e) => {

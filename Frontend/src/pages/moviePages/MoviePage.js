@@ -59,7 +59,7 @@ const MoviePage = () => {
     setComment(event.target.value);
   };
 
-  const baseURLPost = "http://localhost:8080/avaliacoes";
+  const baseURLPost = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/avaliacoes";
   const { post, response } = useFetch(baseURLPost);
   const HandleEvaluate = async () => {
     if (rating === 0 || comment === "") {

@@ -5,7 +5,7 @@ import useFetch from "use-http";
 import { AiFillMessage } from "react-icons/ai";
 import { FaRegTrashAlt, FaEdit, FaSave } from "react-icons/fa";
 
-const ContentFilmes = () => {
+const ContentUsers = () => {
   const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/filmes";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
   const [novoItem, setNovoItem] = useState();
@@ -139,17 +139,22 @@ const ContentFilmes = () => {
       <table className="tabela-conteudo">
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Ano</th>
-            <th>Diretor</th>
-            <th>Elenco</th>
+            <th>Nome</th>
+            <th>Senha</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Nascimento</th>
+            <th>Interesse</th>
           </tr>
         </thead>
         {movies.map((m, index) => (
           <tr key={m.id}>
-            <td>{m.titulo}</td>
-            <td>{m.anoLancamento}</td>
-            <td>{m.diretor}</td>
+            <td>{m.nome}</td>
+            <td>{m.senha}</td>
+            <td>{m.cidade}</td>
+            <td>{m.estado}</td>
+            <td>{m.nascimento}</td>
+            <td>{m.interesse}</td>
             <td className="act-bottons">
               {editandoItem === index ? (
                 <>
@@ -178,4 +183,4 @@ const ContentFilmes = () => {
     </>
   );
 };
-export default ContentFilmes;
+export default ContentUsers;

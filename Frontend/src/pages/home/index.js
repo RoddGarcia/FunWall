@@ -11,7 +11,7 @@ import Modal from "../../components/modal/Modal";
 import GetMovieData from "../GetMovieData";
 
 export const HomePage = () => {
-  const baseURLLivros = "http://localhost:8080/livros";
+  const baseURLLivros = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/livros";
   const { get, response } = useFetch(baseURLLivros);
   // const [movies, setMovies] = useState([]);
   const [livros, setLivros] = useState([]);
@@ -28,30 +28,10 @@ export const HomePage = () => {
     buscarLivros();
   }, []);
 
-  console.log(livros);
-
-  //  API É CHAMADA AQUI APENAS PARA TESTE EM console.LOG
-  // const baseURL = "http://localhost:8080/filmes";
-
-  // const { get, response } = useFetch(baseURL);
-  // const [filmes, setFilmes] = useState([]);
-
-  // const buscar = async () => {
-  //   const resp = await get();
-  //   console.log(resp);
-  //   if (response.ok) {
-  //     setFilmes(resp);
-  //   } else {
-  //     setFilmes([]);
-  //   }
-  // };
-  // useEffect(() => {
-  //   buscar();
-  //   console.log(filmes);
-  // }, []);
-
   const movies = GetMovieData("filmes");
   const series = GetMovieData("series");
+
+  console.log(movies)
 
   return (
     <>

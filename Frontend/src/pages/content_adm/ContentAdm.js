@@ -6,6 +6,8 @@ import { usuarios } from "../../mocks/dummyData";
 import { movies } from "../../mocks/dummyData";
 import { books } from "../../mocks/dummyData";
 import ContentFilmes from "../content_adm/ContentFilmes";
+import ContentUsers from "./ContentUsers";
+import { Link } from "react-router-dom";
 
 const ContentAdm = () => {
   const [tipoConteudo, setTipoConteudo] = useState("filmes");
@@ -26,7 +28,7 @@ const ContentAdm = () => {
     const { name, value } = e.target;
     setNovoItem({ ...novoItem, [name]: value });
   };
-  // console.log(tipoConteudo);
+  console.log(tipoConteudo);
 
   // const adicionarItem = () => {
   //   const novaUUID = gerarUUID();
@@ -105,8 +107,9 @@ const ContentAdm = () => {
     setEditandoItem(index);
   };
 
-  const isAdmin =
-    cookies.user && cookies.user.username.toLowerCase() === "admin";
+  console.log(cookies.user)
+
+  const isAdmin = cookies.user && cookies.user.nome === "admin";
 
   // const renderizarTabela = () => {
   //   return (
@@ -168,7 +171,7 @@ const ContentAdm = () => {
   //                   <input
   //                     type="text"
   //                     name="senha"
-  //                     value={novoItem.senha}
+  //                     // value={novoItem.senha}
   //                     onChange={handleInputChange}
   //                   />
   //                 ) : (
@@ -182,7 +185,7 @@ const ContentAdm = () => {
   //                     <input
   //                       type="text"
   //                       name="director"
-  //                       value={novoItem.director}
+  //                       // value={novoItem.director}
   //                       onChange={handleInputChange}
   //                     />
   //                   ) : (
@@ -194,7 +197,7 @@ const ContentAdm = () => {
   //                     <input
   //                       type="text"
   //                       name="description"
-  //                       value={novoItem.description}
+  //                       // value={novoItem.description}
   //                       onChange={handleInputChange}
   //                     />
   //                   ) : (
@@ -234,6 +237,8 @@ const ContentAdm = () => {
     console.log(x);
     if (x === "filmes") {
       return <ContentFilmes />;
+    } else if (x === "usuarios") {
+      return <ContentUsers />;
     }
   };
 
@@ -245,7 +250,13 @@ const ContentAdm = () => {
             <label htmlFor="categoria" style={{ color: "#fff854" }}>
               Categoria:
             </label>
-            <select
+            <div style={{ display: "flex", flexDirection: "row" , gap: "20px", color: "yellow"}}>
+              <Link to="/pages/gerenciar/filmes">Filmes</Link>
+              <Link to="/pages/gerenciar/series">Séries</Link>
+              <Link to="/pages/gerenciar/livros">Livros</Link>
+              <Link to="/pages/gerenciar/usuarios">Usuários</Link>
+            </div>
+            {/* <select
               id="categoria"
               value={tipoConteudo}
               onChange={(e) => setTipoConteudo(e.target.value)}
@@ -254,7 +265,7 @@ const ContentAdm = () => {
               <option value="series">Séries</option>
               <option value="livros">Livros</option>
               <option value="usuarios">Usuários</option>
-            </select>
+            </select> */}
           </div>
           <h1 style={{ color: "#fff854" }}>Lista de {tipoConteudo}</h1>
           {/* <div className="add-form">
@@ -271,11 +282,6 @@ const ContentAdm = () => {
         </>
       ) : (
         <>
-          <h1>
-            Eu quando a morena me flagra tentando entrar na página de CRUD do
-            admin sem estar logado como admin: kkkkk{" "}
-          </h1>
-          <img src="../../images/easter egg.jpeg" alt="Easter Egg" />
         </>
       )}
     </div>
