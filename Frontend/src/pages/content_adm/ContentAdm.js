@@ -235,9 +235,7 @@ const ContentAdm = () => {
 
   const renderizarTabela = (x) => {
     console.log(x);
-    if (x === "filmes") {
-      return <ContentFilmes />;
-    } else if (x === "usuarios") {
+    if (x === "usuarios") {
       return <ContentUsers />;
     }
   };

@@ -5,8 +5,8 @@ import useFetch from "use-http";
 import { AiFillMessage } from "react-icons/ai";
 import { FaRegTrashAlt, FaEdit, FaSave } from "react-icons/fa";
 
-const ContentUsers = () => {
-  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios";
+const ContentSeries = () => {
+  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/series";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
   const [novoItem, setNovoItem] = useState();
   const [movies, setMovies] = useState([]);
@@ -139,22 +139,26 @@ const ContentUsers = () => {
       <table className="tabela-conteudo">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Senha</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Nascimento</th>
-            <th>Interesse</th>
+            <th>Titulo</th>
+            <th>Diretor</th>
+            <th>Genero</th>
+            <th>Elenco</th>
+            <th>País</th>
+            <th>Ano de Lançamento</th>
+            <th>Num. de Temporadas</th>
+            <th>Num. de Episódios</th>
           </tr>
         </thead>
         {movies.map((m, index) => (
           <tr key={m.id}>
-            <td>{m.nome}</td>
-            <td>{m.senha}</td>
-            <td>{m.cidade}</td>
-            <td>{m.estado}</td>
-            <td>{m.nascimento}</td>
-            <td>{m.interesse}</td>
+            <td>{m.titulo}</td>
+            <td>{m.diretor}</td>
+            <td>{m.genero}</td>
+            <td>{m.elenco_princ}</td>
+            <td>{m.pais}</td>
+            <td>{m.anoLancamento}</td>
+            <td>{m.num_temporadas}</td>
+            <td>{m.media}</td>
             <td className="act-bottons">
               {editandoItem === index ? (
                 <>
@@ -183,4 +187,4 @@ const ContentUsers = () => {
     </>
   );
 };
-export default ContentUsers;
+export default ContentSeries;

@@ -13,6 +13,9 @@ import Pesquisa from "./pages/fullContent/Pesquisa";
 import SeriePage from "./pages/seriePage/SeriePage";
 import LivroPage from "./pages/home/livroPage/LivroPage";
 import ContentFilmes from "./pages/content_adm/ContentFilmes";
+import ContentSeries from "./pages/content_adm/ContentSeries";
+import ContentLivros from "./pages/content_adm/ContentLivros";
+import ContentUsers from "./pages/content_adm/ContentUsers";
 
 function App() {
   const router = createBrowserRouter([
@@ -152,7 +155,7 @@ function App() {
       path: "/pages/gerenciar/usuarios",
       element: (
         <Layout>
-           <ContentUsuarios />
+           <ContentUsers />
         </Layout>
       ),
     },

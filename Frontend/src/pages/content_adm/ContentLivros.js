@@ -5,8 +5,8 @@ import useFetch from "use-http";
 import { AiFillMessage } from "react-icons/ai";
 import { FaRegTrashAlt, FaEdit, FaSave } from "react-icons/fa";
 
-const ContentUsers = () => {
-  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios";
+const ContentLivros = () => {
+  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/filmes";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
   const [novoItem, setNovoItem] = useState();
   const [movies, setMovies] = useState([]);
@@ -183,4 +183,4 @@ const ContentUsers = () => {
     </>
   );
 };
-export default ContentUsers;
+export default ContentLivros;
