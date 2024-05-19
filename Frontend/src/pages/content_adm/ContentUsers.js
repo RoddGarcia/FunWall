@@ -4,44 +4,24 @@ import React, { useState } from "react";
 import useFetch from "use-http";
 import { AiFillMessage } from "react-icons/ai";
 import { FaRegTrashAlt, FaEdit, FaSave } from "react-icons/fa";
+import axios from "axios";
+import { BiColor } from "react-icons/bi";
 
 const ContentUsers = () => {
-  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios";
+  const baseURL =
+    "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
-  const [novoItem, setNovoItem] = useState();
+  const [preferencia, setPreferencia] = useState("");
   const [movies, setMovies] = useState([]);
   const [id, setId] = useState("");
-  const [titulo, setTitulo] = useState("");
-  const [diretor, setDiretor] = useState("");
-  const [anoLancamento, setAnoLancamento] = useState("");
-  const [elenco, setElenco] = useState("");
+  const [nome, setNome] = useState("");
+  const [estado, setEstado] = useState("");
+  const [senha, setSenha] = useState("");
+  const [nascimento, setNascimento] = useState("");
+  const [cidade, setCidade] = useState("");
   const [pais, setPais] = useState("");
   const [genero, setGenero] = useState("");
   const [editandoItem, setEditandoItem] = useState(null);
-
-  function gerarUUID() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return (
-      s4() +
-      s4() +
-      "-" +
-      s4() +
-      "-4" +
-      s4().substr(0, 3) +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      s4() +
-      s4()
-    );
-  }
-
-  const uuid = gerarUUID();
 
   const buscar = async () => {
     const resp = await get();
@@ -53,13 +33,64 @@ const ContentUsers = () => {
     }
   };
 
-  const cancelarEdicao = () => {};
+  const cancelarEdicao = () => {
+    setNome("");
+    setNascimento("");
+    setCidade("");
+    setPais("");
+    setEstado("");
+    setGenero("");
+    setId("");
+  };
 
-  const salvarEdicao = () => {};
+  const salvarEdicao = async () => {
+    const body = {
+      nome: nome,
+      estado: estado,
+      senha: senha,
+      genero: preferencia,
+      pais: pais,
+      cidade: cidade,
+      nascimento: nascimento,
+      // avatar: avatar
+    };
 
-  const removerItem = () => {};
+    try {
+      if (id) {
+        await axios.put(`${baseURL}/${id}`, body);
+        alert("Filme atualizado com sucesso.");
+      } else {
+        await axios.post(baseURL, body);
+        alert("Filme adicionado com sucesso.");
+      }
+      buscar();
+      cancelarEdicao();
+    } catch (error) {
+      console.error(error.response.data);
+    }
+    window.location.reload();
+  };
 
-  const editarItem = () => {};
+  const removerItem = async (e) => {
+    if (window.confirm("Deseja realmente apagar " + e.titulo + "?")) {
+      await del("/" + e.id)
+        .then(() => alert("Filme " + e.titulo + " eliminado."))
+        .then(() => window.location.reload());
+    }
+  };
+
+  const editarItem = async (e) => {
+    cancelarEdicao();
+
+    setNome(e.nome);
+    setNascimento(e.nascimento);
+    setCidade(e.cidade);
+    setSenha(e.senha);
+    setPais(e.pais);
+    setEstado(e.estado);
+    setGenero(e.genero);
+    setId(e.id);
+  };
 
   useEffect(() => {
     buscar();
@@ -71,65 +102,78 @@ const ContentUsers = () => {
         <div className="inputNovoItem">
           <input
             type="text"
-            name="titulo"
-            placeholder="Titulo"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
+            name="nome"
+            placeholder="Nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             required
           />
           <input
             type="text"
-            name="ano"
-            placeholder="Ano de Lançamento"
-            value={anoLancamento}
-            onChange={(e) => setAnoLancamento(e.target.value)}
+            name="senha"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
+          <input
+            type="date"
+            name="nascimento"
+            placeholder="Ano de Nascimento"
+            value={nascimento}
+            onChange={(e) => setNascimento(e.target.value)}
             required
           />
           <input
             type="text"
-            name="elenco"
-            placeholder="Elenco"
-            value={elenco}
-            onChange={(e) => setElenco(e.target.value)}
+            name="cidade"
+            placeholder="Cidade"
+            value={cidade}
+            onChange={(e) => setCidade(e.target.value)}
             required
           />
           <input
             type="text"
-            name="pais"
-            placeholder="País"
-            value={pais}
-            onChange={(e) => setPais(e.target.value)}
+            name="estado"
+            placeholder="Estado"
+            value={estado}
+            onChange={(e) => setEstado(e.target.value)}
             required
           />
-          <input
-            type="text"
-            name="diretor"
-            placeholder="Diretor"
-            value={diretor}
-            onChange={(e) => setDiretor(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            name="genero"
-            placeholder="Gênero"
-            value={genero}
-            onChange={(e) => setGenero(e.target.value)}
-            required
-          />
-          <input
+          <select
+            name="select"
+            value={preferencia}
+            onChange={(e) => setPreferencia(e.target.value)}
+          >
+            <option value="Comédia">Comédia</option>
+            <option value="Terror">Terror</option>
+            <option value="Romance">Romance</option>
+            <option value="Ação">Ação</option>
+            <option value="Suspense">Suspense</option>
+            <option value="Fantasia">Fantasia</option>
+          </select>
+          {/* <input
             type="text"
             name="description"
-            value={uuid}
+            value={id}
             placeholder="Descrição"
             required
-          />
+          /> */}
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {id}
+          </div>
         </div>
 
         <div className="img-side">
           <img alt="imagem" />
           <input type="file" accept=".jpg" required />
-          <button>Enviar</button>
+          <button onClick={() => salvarEdicao()}>Enviar</button>
         </div>
       </div>
 
@@ -140,20 +184,19 @@ const ContentUsers = () => {
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Senha</th>
-            <th>Cidade</th>
-            <th>Estado</th>
-            <th>Nascimento</th>
+            <th>Ano de Nascimento</th>
+            <th>Cidade - Estado</th>
             <th>Interesse</th>
+            <th>Ações</th>
           </tr>
         </thead>
         {movies.map((m, index) => (
           <tr key={m.id}>
             <td>{m.nome}</td>
-            <td>{m.senha}</td>
-            <td>{m.cidade}</td>
-            <td>{m.estado}</td>
             <td>{m.nascimento}</td>
+            <td>
+              {m.cidade} - {m.estado}
+            </td>
             <td>{m.interesse}</td>
             <td className="act-bottons">
               {editandoItem === index ? (
@@ -166,12 +209,10 @@ const ContentUsers = () => {
                 </>
               ) : (
                 <>
-                  {/* passar o id pelo parametro */}
-                  <button onClick={() => removerItem()}>
+                  <button onClick={() => removerItem(m)}>
                     <FaRegTrashAlt />
                   </button>
-                  {/* passar o id pelo parametro */}
-                  <button onClick={() => editarItem()}>
+                  <button onClick={() => editarItem(m)}>
                     <FaEdit />
                   </button>
                 </>

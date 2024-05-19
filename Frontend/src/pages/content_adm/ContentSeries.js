@@ -4,11 +4,14 @@ import React, { useState } from "react";
 import useFetch from "use-http";
 import { AiFillMessage } from "react-icons/ai";
 import { FaRegTrashAlt, FaEdit, FaSave } from "react-icons/fa";
+import axios from "axios";
+import { BiColor } from "react-icons/bi";
 
 const ContentSeries = () => {
-  const baseURL = "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/series";
+  const baseURL =
+    "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/series";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
-  const [novoItem, setNovoItem] = useState();
+  const [preferencia, setPreferencia] = useState("");
   const [movies, setMovies] = useState([]);
   const [id, setId] = useState("");
   const [titulo, setTitulo] = useState("");
@@ -16,32 +19,9 @@ const ContentSeries = () => {
   const [anoLancamento, setAnoLancamento] = useState("");
   const [elenco, setElenco] = useState("");
   const [pais, setPais] = useState("");
+  const [temporadas, setTemporadas] = useState("");
   const [genero, setGenero] = useState("");
   const [editandoItem, setEditandoItem] = useState(null);
-
-  function gerarUUID() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return (
-      s4() +
-      s4() +
-      "-" +
-      s4() +
-      "-4" +
-      s4().substr(0, 3) +
-      "-" +
-      s4() +
-      "-" +
-      s4() +
-      s4() +
-      s4()
-    );
-  }
-
-  const uuid = gerarUUID();
 
   const buscar = async () => {
     const resp = await get();
@@ -53,13 +33,65 @@ const ContentSeries = () => {
     }
   };
 
-  const cancelarEdicao = () => {};
+  const cancelarEdicao = () => {
+    setTitulo("");
+    setAnoLancamento("");
+    setElenco("");
+    setPais("");
+    setDiretor("");
+    setGenero("");
+    setId("");
+  };
 
-  const salvarEdicao = () => {};
+  const salvarEdicao = async () => {
+    const body = {
+      titulo: titulo,
+      diretor: diretor,
+      genero: preferencia,
+      pais: pais,
+      elenco: elenco,
+      anoLancamento: anoLancamento,
+      num_temporadas: temporadas,
+      // avatar: avatar
+    };
 
-  const removerItem = () => {};
+    try {
+      if (id) {
+        await axios.put(`${baseURL}/${id}`, body);
+        alert("Filme atualizado com sucesso.");
+      } else {
+        // Otherwise, create a new movie
+        await axios.post(baseURL, body);
+        alert("Filme adicionado com sucesso.");
+      }
+      buscar();
+      cancelarEdicao();
+    } catch (error) {
+      console.error(error.response.data);
+    }
+    window.location.reload();
+  };
 
-  const editarItem = () => {};
+  const removerItem = async (e) => {
+    if (window.confirm("Deseja realmente apagar " + e.titulo + "?")) {
+      await del("/" + e.id)
+        .then(() => alert("Filme " + e.titulo + " eliminado."))
+        .then(() => window.location.reload());
+    }
+  };
+
+  const editarItem = async (e) => {
+    cancelarEdicao();
+
+    setTitulo(e.titulo);
+    setAnoLancamento(e.anoLancamento);
+    setElenco(e.elenco);
+    setPais(e.pais);
+    setDiretor(e.diretor);
+    setGenero(e.genero);
+    setTemporadas(e.num_temporadas);
+    setId(e.id);
+  };
 
   useEffect(() => {
     buscar();
@@ -78,7 +110,7 @@ const ContentSeries = () => {
             required
           />
           <input
-            type="text"
+            type="date"
             name="ano"
             placeholder="Ano de Lançamento"
             value={anoLancamento}
@@ -110,26 +142,47 @@ const ContentSeries = () => {
             required
           />
           <input
-            type="text"
-            name="genero"
-            placeholder="Gênero"
-            value={genero}
-            onChange={(e) => setGenero(e.target.value)}
+            type="number"
+            name="temporadas"
+            placeholder="Temporadas"
+            value={temporadas}
+            onChange={(e) => setTemporadas(e.target.value)}
             required
           />
-          <input
+          <select
+            name="select"
+            value={preferencia}
+            onChange={(e) => setPreferencia(e.target.value)}
+          >
+            <option value="Comédia">Comédia</option>
+            <option value="Terror">Terror</option>
+            <option value="Romance">Romance</option>
+            <option value="Ação">Ação</option>
+            <option value="Suspense">Suspense</option>
+            <option value="Fantasia">Fantasia</option>
+          </select>
+          {/* <input
             type="text"
             name="description"
-            value={uuid}
+            value={id}
             placeholder="Descrição"
             required
-          />
+          /> */}
+          <div
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {id}
+          </div>
         </div>
 
         <div className="img-side">
           <img alt="imagem" />
           <input type="file" accept=".jpg" required />
-          <button>Enviar</button>
+          <button onClick={() => salvarEdicao()}>Enviar</button>
         </div>
       </div>
 
@@ -139,26 +192,21 @@ const ContentSeries = () => {
       <table className="tabela-conteudo">
         <thead>
           <tr>
-            <th>Titulo</th>
+            <th>Título</th>
+            <th>Ano</th>
             <th>Diretor</th>
-            <th>Genero</th>
-            <th>Elenco</th>
-            <th>País</th>
-            <th>Ano de Lançamento</th>
-            <th>Num. de Temporadas</th>
-            <th>Num. de Episódios</th>
+            <th>Gênero</th>
+            <th>Temporadas</th>
+            <th>Ações</th>
           </tr>
         </thead>
         {movies.map((m, index) => (
           <tr key={m.id}>
             <td>{m.titulo}</td>
+            <td>{m.anoLancamento}</td>
             <td>{m.diretor}</td>
             <td>{m.genero}</td>
-            <td>{m.elenco_princ}</td>
-            <td>{m.pais}</td>
-            <td>{m.anoLancamento}</td>
             <td>{m.num_temporadas}</td>
-            <td>{m.media}</td>
             <td className="act-bottons">
               {editandoItem === index ? (
                 <>
@@ -170,12 +218,10 @@ const ContentSeries = () => {
                 </>
               ) : (
                 <>
-                  {/* passar o id pelo parametro */}
-                  <button onClick={() => removerItem()}>
+                  <button onClick={() => removerItem(m)}>
                     <FaRegTrashAlt />
                   </button>
-                  {/* passar o id pelo parametro */}
-                  <button onClick={() => editarItem()}>
+                  <button onClick={() => editarItem(m)}>
                     <FaEdit />
                   </button>
                 </>
