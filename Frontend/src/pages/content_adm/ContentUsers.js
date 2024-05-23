@@ -11,7 +11,7 @@ const ContentUsers = () => {
   const baseURL =
     "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
-  const [preferencia, setPreferencia] = useState("");
+  const [preferencia, setPreferencia] = useState("Comédia");
   const [movies, setMovies] = useState([]);
   const [id, setId] = useState("");
   const [nome, setNome] = useState("");
@@ -39,7 +39,7 @@ const ContentUsers = () => {
     setCidade("");
     setPais("");
     setEstado("");
-    setGenero("");
+    setPreferencia("");
     setId("");
   };
 
@@ -48,7 +48,7 @@ const ContentUsers = () => {
       nome: nome,
       estado: estado,
       senha: senha,
-      genero: preferencia,
+      interesse: preferencia,
       pais: pais,
       cidade: cidade,
       nascimento: nascimento,
@@ -88,7 +88,7 @@ const ContentUsers = () => {
     setSenha(e.senha);
     setPais(e.pais);
     setEstado(e.estado);
-    setGenero(e.genero);
+    setPreferencia(e.preferencia);
     setId(e.id);
   };
 

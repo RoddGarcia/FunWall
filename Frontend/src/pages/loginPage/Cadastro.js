@@ -11,7 +11,7 @@ const Cadastro = () => {
   const [data, setData] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
-  const [preferencia, setPreferencia] = useState("comedia");
+  const [preferencia, setPreferencia] = useState("Comédia");
   const [userData, setUserData] = useState({});
 
   const baseURL = `http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/usuarios`;
@@ -142,10 +142,10 @@ const Cadastro = () => {
             value={preferencia}
             onChange={(e) => setPreferencia(e.target.value)}
           >
-            <option value="comedia">Comédia</option>
-            <option value="terror">Terror</option>
-            <option value="romance">Romance</option>
-            <option value="acao">Ação</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Terror">Terror</option>
+            <option value="Romance">Romance</option>
+            <option value="Ação">Ação</option>
             <option value="Suspense">Suspense</option>
             <option value="Fantasia">Fantasia</option>
           </select>

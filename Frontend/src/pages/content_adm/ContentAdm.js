@@ -255,7 +255,7 @@ const ContentAdm = () => {
               <Link to="/pages/gerenciar/usuarios">Usuários</Link>
             </div>
             {/* <select
-              id="categoria"
+              id="categoria"ad
               value={tipoConteudo}
               onChange={(e) => setTipoConteudo(e.target.value)}
             >

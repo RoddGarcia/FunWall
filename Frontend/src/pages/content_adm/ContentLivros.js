@@ -11,7 +11,7 @@ const ContentLivros = () => {
   const baseURL =
     "http://ec2-3-82-238-164.compute-1.amazonaws.com:25000/livros";
   const { get, response, del, put, error, loading } = useFetch(baseURL);
-  const [preferencia, setPreferencia] = useState("");
+  const [preferencia, setPreferencia] = useState("Comédia");
   const [movies, setMovies] = useState([]);
   const [id, setId] = useState("");
   const [titulo, setTitulo] = useState("");
